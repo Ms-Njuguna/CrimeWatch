@@ -1,4 +1,13 @@
-let allFugitives = []; // store the original list globally
+//to make sure the DOM loads first before any function is executed
+document.addEventListener('DOMContentLoaded', (e) => {
+    e.preventDefault();
+
+    fetchFugitiveData();
+    searchForFugitive()
+})
+
+
+let allFugitives = []; // stores the original list of fugitives globally
 
 
 //fetch fugitive data from the FBI most wanted public API
@@ -23,8 +32,6 @@ function fetchFugitiveData() {
         console.log("Failed to fetch fugitives:",error);
     }
 }
-
-fetchFugitiveData();
 
 
 //the idea is to create fugitive cards that show name, image, and details
@@ -75,4 +82,3 @@ function searchForFugitive() {
     })
 }
 
-searchForFugitive()
