@@ -2,15 +2,20 @@
 //fetch fugitive data from the FBI most wanted public API
 
 function fetchFugitiveData() {
-    fetch('https://api.fbi.gov/wanted/v1/list')
-    .then(res => res.json())
-    .then(data => {
+    try {
+        fetch('https://api.fbi.gov/wanted/v1/list')
+        .then(res => res.json())
+        .then(data => {
 
-        const fugitives = data.items;
-        console.log(fugitives);
+           const fugitives = data.items;
+           console.log(fugitives);
 
-        displayFugitives(fugitives);
-    })
+           displayFugitives(fugitives);
+        })
+    } catch (error) {
+        alert('There was an error fetching the fugitives')
+        console.log("Failed to fetch fugitives:",error);
+    }
 }
 
 
