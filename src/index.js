@@ -2,6 +2,9 @@
 //fetch fugitive data from the FBI most wanted public API
 
 function fetchFugitiveData() {
+    const spinner = document.getElementById('spinner');
+    spinner.style.display = 'block'; // Shows the loading spinner
+
     try {
         fetch('https://api.fbi.gov/wanted/v1/list')
         .then(res => res.json())
