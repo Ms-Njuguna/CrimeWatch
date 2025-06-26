@@ -1,3 +1,5 @@
+let allFugitives = []; // store the original list globally
+
 
 //fetch fugitive data from the FBI most wanted public API
 
@@ -12,6 +14,7 @@ function fetchFugitiveData() {
 
            const fugitives = data.items;
            console.log(fugitives);
+           allFugitives = fugitives; // 💾 Store globally
 
            displayFugitives(fugitives);
         })
@@ -28,6 +31,15 @@ fetchFugitiveData();
 
 function displayFugitives(fugitives) {
     const mainSection = document.querySelector('main')
+    mainSection.innerHTML = ''; // 💥 Clear previous fugitive cards
+
+    if (fugitives.length === 0) {
+        const message = document.createElement('p');
+        message.textContent = 'No fugitives found ...';
+        message.classList.add('text-center', 'text-gray-500', 'text-xl', 'py-6');
+        mainSection.appendChild(message);
+        return;
+    }
 
     fugitives.forEach(fugitive => {
         const fugitiveCard = document.createElement('div')
@@ -49,3 +61,18 @@ function displayFugitives(fugitives) {
         console.log(fugitiveCard);
     });
 }
+
+
+function searchForFugitive() {
+    const searchInput = document.querySelector('#searchInput')
+
+    searchInput.addEventListener('input', () => {
+        const searchValue = searchInput.value.toLowerCase();
+        const searchResult = allFugitives.filter(fugitive => fugitive.title.toLowerCase().includes(searchValue));
+
+        displayFugitives(searchResult);
+       
+    })
+}
+
+searchForFugitive()

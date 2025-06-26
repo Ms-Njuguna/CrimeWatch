@@ -75,3 +75,31 @@ main {
 .report-btn:hover {
   background-color: #e6001f;
 }
+
+/* styling the search bar */
+.search-bar {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.input-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 400px;
+}
+
+.input-icon svg {
+  position: absolute;
+  left: 10px;
+  pointer-events: none;
+  fill: #aaa;
+}
+
+.input-icon input {
+  width: 100%;
+  padding: 10px 10px 10px 36px; /* left padding for the icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
