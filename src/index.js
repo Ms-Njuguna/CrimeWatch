@@ -21,6 +21,8 @@ function fetchFugitiveData() {
     }
 }
 
+fetchFugitiveData();
+
 
 //the idea is to create fugitive cards that show name, image, and details
 
@@ -29,17 +31,18 @@ function displayFugitives(fugitives) {
 
     fugitives.forEach(fugitive => {
         const fugitiveCard = document.createElement('div')
+        fugitiveCard.classList.add('fugitive-card');
         fugitiveCard.innerHTML = `
-            <img src="${fugitive.images[0]}" alt="${fugitive.title}">
-            <div>
+            <img src="${fugitive.images[0].original}" alt="${fugitive.title}">
+            <div class="fugitive-info">
                 <h2>${fugitive.title}</h2>
                 <p>${fugitive.description}</p>
             </div>
-            <div>
+            <div class="fugitive-details">
                 <p>${fugitive.warning_message}</p>
                 <p>${fugitive.reward_text}</p>
             </div>
-            <button>Report Sighting</button>
+            <button class="report-btn">Report Sighting</button>
         `
 
         mainSection.appendChild(fugitiveCard)

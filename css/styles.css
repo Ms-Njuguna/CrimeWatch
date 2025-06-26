@@ -14,3 +14,64 @@ body {
 }
 
 /* You can add custom utility classes here if needed */
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.fugitive-card {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.fugitive-card:hover {
+  transform: scale(1.02);
+}
+
+.fugitive-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.fugitive-info h2 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.fugitive-info p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.fugitive-details p {
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.report-btn {
+  margin-top: auto;
+  background-color: #ff3b3f;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.report-btn:hover {
+  background-color: #e6001f;
+}
