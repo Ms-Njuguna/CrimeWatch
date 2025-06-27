@@ -15,7 +15,11 @@ body {
 
 /* You can add custom utility classes here if needed */
 
-main {
+#fugitive-details {
+  transition: opacity 0.3s ease;
+}
+
+#fugitive-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
