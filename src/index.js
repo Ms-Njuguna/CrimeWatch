@@ -26,10 +26,14 @@ function fetchFugitiveData() {
            allFugitives = fugitives; // 💾 Store globally
 
            displayFugitives(fugitives);
+           spinner.classList.add('opacity-0');
+           setTimeout(() => spinner.style.display = 'none', 40); // match duration 
         })
     } catch (error) {
         alert('There was an error fetching the fugitives')
         console.log("Failed to fetch fugitives:",error);
+        spinner.classList.add('opacity-0');
+        setTimeout(() => spinner.style.display = 'none', 40); // match duration
     }
 }
 
