@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFugitiveData();
     searchForFugitive();
     cancelReport();
+    const reportForm = document.querySelector('#reportForm');
+    reportForm.addEventListener('submit', submitReport);
 })
 
 
@@ -150,6 +152,25 @@ function showReportForm() {
     reportFormSection.classList.remove('hidden');
 }
 
+
+function submitReport(e) {
+    
+    e.preventDefault();
+
+    alert('Your report has been successfully submitted');
+
+    const reportForm = e.target;
+    reportForm.reset();
+
+    const reportFormSection = document.querySelector('#reportFormSection');
+    reportFormSection.classList.add('hidden');
+
+    const detailSection = document.getElementById('fugitive-details');
+    detailSection.innerHTML = ``;
+    
+    setTimeout(() => displayFugitives(allFugitives), 0);
+    
+}
 
 function cancelReport() {
     const cancelReportButton = document.querySelector('#cancelReport')
