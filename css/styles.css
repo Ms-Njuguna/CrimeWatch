@@ -17,6 +17,15 @@ body {
 
 #fugitive-details {
   transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#fugitive-details .content-box {
+  text-align: justify;
+  max-width: 600px;
+  width: 100%;
 }
 
 #fugitive-list {

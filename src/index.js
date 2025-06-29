@@ -1,9 +1,9 @@
-//to make sure the DOM loads first before any function is executed
-document.addEventListener('DOMContentLoaded', (e) => {
-    e.preventDefault();
+console.log("Script is running");
 
+//to make sure the DOM loads first before any function is executed
+document.addEventListener('DOMContentLoaded', () => {
     fetchFugitiveData();
-    searchForFugitive()
+    searchForFugitive();
 })
 
 
@@ -20,6 +20,7 @@ function fetchFugitiveData() {
         fetch('https://api.fbi.gov/wanted/v1/list')
         .then(res => res.json())
         .then(data => {
+            console.log(data);
 
            const fugitives = data.items;
            console.log(fugitives);
@@ -42,8 +43,7 @@ function fetchFugitiveData() {
 
 function displayFugitives(fugitives) {
     const listSection = document.getElementById('fugitive-list');
-    const detailSection = document.getElementById('fugitive-details');
-    listSection.innerHTML = ''; // 💥 Clear previous fugitive cards
+    listSection.innerHTML = ``; // 💥 Clear previous fugitive cards
 
     if (fugitives.length === 0) {
         const message = document.createElement('p');
@@ -54,10 +54,13 @@ function displayFugitives(fugitives) {
     }
 
     fugitives.forEach(fugitive => {
+        
         const fugitiveCard = document.createElement('div')
         fugitiveCard.classList.add('fugitive-card');
         fugitiveCard.innerHTML = `
-            <img src="${fugitive.images[0].original}" alt="${fugitive.title}">
+            <img src="${fugitive.images?.[0]?.original || './images/placeholder.png'}"
+            alt="${fugitive.title}"
+            class="w-full max-h-[200px] object-cover rounded mb-3"/>
             <div class="fugitive-info">
                 <h2>${fugitive.title}</h2>
                 <p>${fugitive.description}</p>
@@ -72,6 +75,9 @@ function displayFugitives(fugitives) {
 
         listSection.appendChild(fugitiveCard)
         console.log(fugitiveCard);
+        console.log(listSection);
+        // console.log(fugitive.images[0]);
+        // console.log()
 
         fugitiveCard.querySelector('.see-details-btn').addEventListener('click', () => showFugitiveDetails(fugitive))
     });
@@ -93,12 +99,24 @@ function searchForFugitive() {
 function showFugitiveDetails(fugitive) {
     const listSection = document.getElementById('fugitive-list');
     const detailSection = document.getElementById('fugitive-details');
+    listSection.classList.add('hidden');
+    detailSection.classList.remove('hidden');
+    
+
+    const originalHTML = listSection.innerHTML;
+
+    if (!detailSection || !listSection) {
+        console.error("Missing DOM elements: fugitive-details or fugitive-list");
+        return;
+    }
 
     detailSection.innerHTML = `
         <div class="bg-white p-6 rounded shadow">
             <button id="backBtn" class="mb-4 text-blue-600 hover:underline"> ← Back to List </button>
             <h1 class="text-2xl font-bold mb-4">${fugitive.title}</h1>
-            <img src="${fugitive.images?.[0]?.original}" alt="${fugitive.title}" class="w-full max-h-[500px] object-contain mb-4 rounded mx-auto">
+            <img src="${fugitive.images?.[0]?.original || './images/placeholder.png'}"
+            alt="${fugitive.title}"
+            class="w-full max-h-[200px] object-cover rounded mb-3"/>
             <h2 class="text-2xl text-red-500 font-bold mb-4">WANTED</h2>
             <ul class="mb-4">
                 <li><strong>Race:</strong> ${fugitive.race || 'N/A'}</li>
@@ -110,11 +128,21 @@ function showFugitiveDetails(fugitive) {
         </div>
     `;
 
-    listSection.classList.add('hidden');
-    detailSection.classList.remove('hidden');
+    listSection.innerHTML = ``;
+    
+    const originalDetailsHTML = detailSection.innerHTML;
 
-    document.getElementById('backBtn').addEventListener('click', () => {
-        detailSection.classList.add('hidden');
-        listSection.classList.remove('hidden');
+    const backButton = document.getElementById('backBtn')
+
+    backButton.addEventListener('click', () => {
+        detailSection.innerHTML = ``;
+        let fugitives = allFugitives;
+        displayFugitives(fugitives);
     });
+
 }
+
+// {/* <img src="${fugitive.images[0].original}" alt="${fugitive.title}" class="w-full max-h-[500px] object-contain mb-4 rounded mx-auto"></img> */}
+// {/* <img src="${fugitive.images[0].original}" alt="${fugitive.title}"></img> */}
+
+document.body.innerHTML += "<div style='background:red; color:white;'>Hello from JS</div>";
