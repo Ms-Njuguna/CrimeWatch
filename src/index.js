@@ -4,6 +4,7 @@ console.log("Script is running");
 document.addEventListener('DOMContentLoaded', () => {
     fetchFugitiveData();
     searchForFugitive();
+    cancelReport();
 })
 
 
@@ -145,6 +146,19 @@ function showFugitiveDetails(fugitive) {
 
 function showReportForm() {
     console.log('yaaaaaaaaaaaaaaaaay!!!')
+    const reportFormSection = document.querySelector('#reportFormSection');
+    reportFormSection.classList.remove('hidden');
+}
+
+
+function cancelReport() {
+    const cancelReportButton = document.querySelector('#cancelReport')
+    cancelReportButton.addEventListener('click', () => {
+        const reportForm = document.querySelector('#reportForm');
+        reportForm.reset();
+        const reportFormSection = document.querySelector('#reportFormSection');
+        reportFormSection.classList.add('hidden');
+    })
 }
 
 // {/* <img src="${fugitive.images[0].original}" alt="${fugitive.title}" class="w-full max-h-[500px] object-contain mb-4 rounded mx-auto"></img> */}
