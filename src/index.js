@@ -70,7 +70,6 @@ function displayFugitives(fugitives) {
                 <p>${fugitive.reward_text}</p>
             </div>
             <button class="mt-4 text-blue-600 hover:underline see-details-btn">See Full Details</button>
-            <button class="report-btn">Report Sighting</button>
         `
 
         listSection.appendChild(fugitiveCard)
@@ -99,8 +98,8 @@ function searchForFugitive() {
 function showFugitiveDetails(fugitive) {
     const listSection = document.getElementById('fugitive-list');
     const detailSection = document.getElementById('fugitive-details');
-    listSection.classList.add('hidden');
-    detailSection.classList.remove('hidden');
+    // listSection.classList.add('hidden');
+    // detailSection.classList.remove('hidden');
     
 
     const originalHTML = listSection.innerHTML;
@@ -125,6 +124,7 @@ function showFugitiveDetails(fugitive) {
             <p class="mb-2">${fugitive.remarks || ''}</p>
             <p><strong>Reward:</strong> ${fugitive.reward_text || 'No reward info'}</p>
             <p><strong>Warning:</strong> ${fugitive.warning_message || 'N/A'}</p>
+            <button class="report-btn">Report Sighting</button>
         </div>
     `;
 
