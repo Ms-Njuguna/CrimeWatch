@@ -133,13 +133,18 @@ function showFugitiveDetails(fugitive) {
     const originalDetailsHTML = detailSection.innerHTML;
 
     const backButton = document.getElementById('backBtn')
-
     backButton.addEventListener('click', () => {
         detailSection.innerHTML = ``;
         let fugitives = allFugitives;
         displayFugitives(fugitives);
     });
 
+    const reportButton = document.querySelector('.report-btn');
+    reportButton.addEventListener('click', showReportForm);
+}
+
+function showReportForm() {
+    console.log('yaaaaaaaaaaaaaaaaay!!!')
 }
 
 // {/* <img src="${fugitive.images[0].original}" alt="${fugitive.title}" class="w-full max-h-[500px] object-contain mb-4 rounded mx-auto"></img> */}
