@@ -1,4 +1,3 @@
-console.log("Script is running");
 
 //to make sure the DOM loads first before any function is executed
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,21 +22,19 @@ function fetchFugitiveData() {
         fetch('https://api.fbi.gov/wanted/v1/list')
         .then(res => res.json())
         .then(data => {
-            console.log(data);
 
            const fugitives = data.items;
-           console.log(fugitives);
-           allFugitives = fugitives; // 💾 Store globally
+           allFugitives = fugitives; // Stores fugitives globally
 
            displayFugitives(fugitives);
            spinner.classList.add('opacity-0');
-           setTimeout(() => spinner.style.display = 'none', 40); // match duration 
+           setTimeout(() => spinner.style.display = 'none', 40); // matches duration it takes to load data
         })
     } catch (error) {
         alert('There was an error fetching the fugitives')
         console.log("Failed to fetch fugitives:",error);
         spinner.classList.add('opacity-0');
-        setTimeout(() => spinner.style.display = 'none', 40); // match duration
+        setTimeout(() => spinner.style.display = 'none', 40); // matches duration it takes to load data
     }
 }
 
@@ -46,7 +43,7 @@ function fetchFugitiveData() {
 
 function displayFugitives(fugitives) {
     const listSection = document.getElementById('fugitive-list');
-    listSection.innerHTML = ``; // 💥 Clear previous fugitive cards
+    listSection.innerHTML = ``; // Clears previous fugitive cards
 
     if (fugitives.length === 0) {
         const message = document.createElement('p');
@@ -76,11 +73,6 @@ function displayFugitives(fugitives) {
         `
 
         listSection.appendChild(fugitiveCard)
-        console.log(fugitiveCard);
-        console.log(listSection);
-        // console.log(fugitive.images[0]);
-        // console.log()
-
         fugitiveCard.querySelector('.see-details-btn').addEventListener('click', () => showFugitiveDetails(fugitive))
     });
 }
@@ -94,18 +86,12 @@ function searchForFugitive() {
         const searchResult = allFugitives.filter(fugitive => fugitive.title.toLowerCase().includes(searchValue));
 
         displayFugitives(searchResult);
-       
     })
 }
 
 function showFugitiveDetails(fugitive) {
     const listSection = document.getElementById('fugitive-list');
     const detailSection = document.getElementById('fugitive-details');
-    // listSection.classList.add('hidden');
-    // detailSection.classList.remove('hidden');
-    
-
-    const originalHTML = listSection.innerHTML;
 
     if (!detailSection || !listSection) {
         console.error("Missing DOM elements: fugitive-details or fugitive-list");
@@ -132,8 +118,6 @@ function showFugitiveDetails(fugitive) {
     `;
 
     listSection.innerHTML = ``;
-    
-    const originalDetailsHTML = detailSection.innerHTML;
 
     const backButton = document.getElementById('backBtn')
     backButton.addEventListener('click', () => {
@@ -147,7 +131,6 @@ function showFugitiveDetails(fugitive) {
 }
 
 function showReportForm() {
-    console.log('yaaaaaaaaaaaaaaaaay!!!')
     const reportFormSection = document.querySelector('#reportFormSection');
     reportFormSection.classList.remove('hidden');
 }
@@ -169,7 +152,6 @@ function submitReport(e) {
     detailSection.innerHTML = ``;
     
     setTimeout(() => displayFugitives(allFugitives), 0);
-    
 }
 
 function cancelReport() {
@@ -177,12 +159,8 @@ function cancelReport() {
     cancelReportButton.addEventListener('click', () => {
         const reportForm = document.querySelector('#reportForm');
         reportForm.reset();
+        
         const reportFormSection = document.querySelector('#reportFormSection');
         reportFormSection.classList.add('hidden');
     })
 }
-
-// {/* <img src="${fugitive.images[0].original}" alt="${fugitive.title}" class="w-full max-h-[500px] object-contain mb-4 rounded mx-auto"></img> */}
-// {/* <img src="${fugitive.images[0].original}" alt="${fugitive.title}"></img> */}
-
-document.body.innerHTML += "<div style='background:red; color:white;'>Hello from JS</div>";
