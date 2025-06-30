@@ -60,7 +60,7 @@ function displayFugitives(fugitives) {
             alt="${fugitive.title || ''}"
             class="w-full max-h-[400px] object-cover rounded mb-3"/>
             <div class="fugitive-info">
-                <h2 class= "text-center mb-3">${fugitive.title || ''}</h2>
+                <h2 class= "text-center mb-3 text-[#FFA500]">${fugitive.title || ''}</h2>
                 <p class="text-center">${fugitive.description || ''}</p>
             </div>
             <div class="fugitive-details text-center">
