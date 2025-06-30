@@ -57,17 +57,17 @@ function displayFugitives(fugitives) {
         fugitiveCard.classList.add('fugitive-card');
         fugitiveCard.innerHTML = `
             <img src="${fugitive.images?.[0]?.original || './images/placeholder.png'}"
-            alt="${fugitive.title}"
-            class="w-full max-h-[200px] object-cover rounded mb-3"/>
+            alt="${fugitive.title || ''}"
+            class="w-full max-h-[400px] object-cover rounded mb-3"/>
             <div class="fugitive-info">
-                <h2>${fugitive.title}</h2>
-                <p>${fugitive.description}</p>
+                <h2 class= "text-center mb-3">${fugitive.title || ''}</h2>
+                <p class="text-center">${fugitive.description || ''}</p>
             </div>
-            <div class="fugitive-details">
-                <p>${fugitive.warning_message}</p>
-                <p>${fugitive.reward_text}</p>
+            <div class="fugitive-details text-center">
+                <p>${fugitive.warning_message || ''}</p>
+                <p>${fugitive.reward_text || ''}</p>
             </div>
-            <button class="mt-4 text-blue-600 hover:underline see-details-btn">See Full Details</button>
+            <button class="mt-auto text-blue-600 hover:underline see-details-btn p-4 mb-2">See Full Details</button>
         `
 
         listSection.appendChild(fugitiveCard)
@@ -102,11 +102,11 @@ function showFugitiveDetails(fugitive) {
     detailSection.innerHTML = `
         <div class="bg-white p-6 rounded shadow">
             <button id="backBtn" class="mb-4 text-blue-600 hover:underline"> ← Back to List </button>
-            <h1 class="text-2xl font-bold mb-4">${fugitive.title}</h1>
+            <h1 class="text-2xl font-bold mb-4 text-center">${fugitive.title}</h1>
             <img src="${fugitive.images?.[0]?.original || './images/placeholder.png'}"
             alt="${fugitive.title}"
-            class="w-full max-h-[200px] object-cover rounded mb-3"/>
-            <h2 class="text-2xl text-red-500 font-bold mb-4">WANTED</h2>
+            class="w-full max-h-[400px] object-cover rounded mb-3"/>
+            <h2 class="text-3xl text-red-500 font-bold mb-4 text-center uppercase">WANTED</h2>
             <ul class="mb-4">
                 <li><strong>Race:</strong> ${fugitive.race || 'N/A'}</li>
                 <li><strong>Sex:</strong> ${fugitive.sex || 'N/A'}</li>
@@ -114,7 +114,9 @@ function showFugitiveDetails(fugitive) {
             <p class="mb-2">${fugitive.remarks || ''}</p>
             <p><strong>Reward:</strong> ${fugitive.reward_text || 'No reward info'}</p>
             <p><strong>Warning:</strong> ${fugitive.warning_message || 'N/A'}</p>
-            <button class="report-btn">Report Sighting</button>
+            <div class="flex justify-center mt-10">
+                <button class="report-btn">Report Sighting</button>
+            </div>
         </div>
     `;
 

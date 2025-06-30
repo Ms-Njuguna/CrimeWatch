@@ -33,6 +33,8 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   padding: 2rem;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .fugitive-card {
@@ -92,7 +94,7 @@ body {
 /* styling the search bar */
 .search-bar {
   text-align: center;
-  margin: 1rem 0;
+  margin: 2rem 0;
 }
 
 .input-icon {
