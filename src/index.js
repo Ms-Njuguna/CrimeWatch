@@ -1,22 +1,19 @@
-
 //to make sure the DOM loads first before any function is executed
 document.addEventListener('DOMContentLoaded', () => {
     fetchFugitiveData();
     searchForFugitive();
     cancelReport();
+
     const reportForm = document.querySelector('#reportForm');
     reportForm.addEventListener('submit', submitReport);
 })
 
-
 let allFugitives = []; // stores the original list of fugitives globally
 
-
 //fetch fugitive data from the FBI most wanted public API
-
 function fetchFugitiveData() {
     const spinner = document.getElementById('spinner');
-    spinner.style.display = 'block'; // Shows the loading spinner
+    spinner.style.display = 'block'; // Shows a loading spinner before the fugitive cards are all loaded
 
     try {
         fetch('https://api.fbi.gov/wanted/v1/list')
@@ -27,10 +24,11 @@ function fetchFugitiveData() {
            allFugitives = fugitives; // Stores fugitives globally
 
            displayFugitives(fugitives);
-           spinner.classList.add('opacity-0');
+           spinner.classList.add('opacity-0'); //fades the spinner
            setTimeout(() => spinner.style.display = 'none', 40); // matches duration it takes to load data
         })
     } catch (error) {
+        //let's the user know there's an error if there was an issue fetching the data
         alert('There was an error fetching the fugitives')
         console.log("Failed to fetch fugitives:",error);
         spinner.classList.add('opacity-0');
@@ -38,13 +36,12 @@ function fetchFugitiveData() {
     }
 }
 
-
 //the idea is to create fugitive cards that show name, image, and details
-
 function displayFugitives(fugitives) {
     const listSection = document.getElementById('fugitive-list');
     listSection.innerHTML = ``; // Clears previous fugitive cards
 
+    //displays a no fugitives found message if there are no more fugitives to display
     if (fugitives.length === 0) {
         const message = document.createElement('p');
         message.textContent = 'No fugitives found ...';
@@ -53,6 +50,7 @@ function displayFugitives(fugitives) {
         return;
     }
 
+    //for each fugitive, displays according to the innerHTML
     fugitives.forEach(fugitive => {
         
         const fugitiveCard = document.createElement('div')
@@ -77,7 +75,7 @@ function displayFugitives(fugitives) {
     });
 }
 
-
+//function logic for the search bar
 function searchForFugitive() {
     const searchInput = document.querySelector('#searchInput')
 
@@ -85,14 +83,17 @@ function searchForFugitive() {
         const searchValue = searchInput.value.toLowerCase();
         const searchResult = allFugitives.filter(fugitive => fugitive.title.toLowerCase().includes(searchValue));
 
+        //displays the specific fugitive card that matches the input in the search bar
         displayFugitives(searchResult);
     })
 }
 
+//shows a detailed version of a selected fugitive 
 function showFugitiveDetails(fugitive) {
     const listSection = document.getElementById('fugitive-list');
     const detailSection = document.getElementById('fugitive-details');
 
+    //checks if the detail section or list sections exist to avoid breaking the app
     if (!detailSection || !listSection) {
         console.error("Missing DOM elements: fugitive-details or fugitive-list");
         return;
@@ -117,8 +118,10 @@ function showFugitiveDetails(fugitive) {
         </div>
     `;
 
+    //clears the section that displays the fugitive cards
     listSection.innerHTML = ``;
 
+    //clears the detailed display and renders the fugitive cards without refreshing the page
     const backButton = document.getElementById('backBtn')
     backButton.addEventListener('click', () => {
         detailSection.innerHTML = ``;
@@ -130,36 +133,44 @@ function showFugitiveDetails(fugitive) {
     reportButton.addEventListener('click', showReportForm);
 }
 
+//shows a report form where a user can report a sighting or give information
 function showReportForm() {
     const reportFormSection = document.querySelector('#reportFormSection');
     reportFormSection.classList.remove('hidden');
 }
 
-
+//handles the submission of the report sighting form
 function submitReport(e) {
-    
+    //prevents default behaviour of the form
     e.preventDefault();
 
     alert('Your report has been successfully submitted');
 
+    //resets form fields
     const reportForm = e.target;
     reportForm.reset();
 
+    //hides the form
     const reportFormSection = document.querySelector('#reportFormSection');
     reportFormSection.classList.add('hidden');
 
+    //hides the detailed fugitive display and renders the fugitive cards display without refreshing the page
     const detailSection = document.getElementById('fugitive-details');
     detailSection.innerHTML = ``;
     
     setTimeout(() => displayFugitives(allFugitives), 0);
 }
 
+
+//handles the cancel button that belongs to the report sighting form
 function cancelReport() {
     const cancelReportButton = document.querySelector('#cancelReport')
     cancelReportButton.addEventListener('click', () => {
+        //resets the form's input fields
         const reportForm = document.querySelector('#reportForm');
         reportForm.reset();
-        
+
+        //hides the form
         const reportFormSection = document.querySelector('#reportFormSection');
         reportFormSection.classList.add('hidden');
     })
